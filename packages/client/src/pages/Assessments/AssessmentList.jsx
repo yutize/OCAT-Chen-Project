@@ -71,26 +71,23 @@ export const AssessmentList = () => {
   });
 
   return <div className="p-2">
-    <table border="1" cellPadding="5">
+    <table style={{ borderCollapse: `collapse`, width: `100%` }}>
       <thead>
         {table.getHeaderGroups().map((headerGroup) =>
-          <tr key={headerGroup.id}>
+          <tr key={headerGroup.id} style={{ borderBottom: `2px solid #ccc` }}>
             {headerGroup.headers.map((header) =>
-              <th key={header.id}>
+              <th key={header.id} style={{ padding: `8px`, textAlign: `left` }}>
                 {header.isPlaceholder ?
                   null :
-                    flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                    flexRender(header.column.columnDef.header, header.getContext())}
               </th>)}
           </tr>)}
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) =>
-          <tr key={row.id}>
+          <tr key={row.id} style={{ borderBottom: `1px solid #ddd` }}>
             {row.getVisibleCells().map((cell) =>
-              <td key={cell.id}>
+              <td key={cell.id} style={{ padding: `8px` }}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>)}
           </tr>)}
