@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
+
 import { AssessmentService } from '../../services/AssessmentService';
 
 export const AssessmentList = () => {
   const [ assessments, setAssessments ] = useState([]);
-
   // fetch all assessments using the AssessmentService.getList function from OCAT/client/services/AssessmentService.js
   useEffect(() => {
     const fetchAssessments = async () => {
@@ -11,11 +18,83 @@ export const AssessmentList = () => {
     };
     fetchAssessments();
   }, []);
+  const data = assessments;
+  console.log(`front-end data`, data);
 
-  return <div>
-    {/*
-          List goes here
-          Please use the library react-table https://www.npmjs.com/package/react-table
-      */}
+  const columnHelper = createColumnHelper();
+  const columns = [
+    columnHelper.group({
+      id: `title`,
+      columns: [
+        {
+          accessorKey: `id`,
+          header: `ID Number`,
+        },
+        {
+          accessorKey: `catName`,
+          header: `Cat Name`,
+        },
+        {
+          accessorKey: `catDateOfBirth`,
+          header: `Cat Date of Birth`,
+        },
+        {
+          accessorKey: `score`,
+          header: `Score`,
+        },
+        {
+          accessorKey: `riskLevel`,
+          header: `Risk Level`,
+        },
+        {
+          accessorKey: `instrumentType`,
+          header: `Instrument Type`,
+        },
+        {
+          accessorKey: `createdAt`,
+          header: `Assessment Creation Date`,
+        },
+        {
+          accessorKey: `updatedAt`,
+          header: `Updated At`,
+        },
+      ],
+      header: () => <span>OCAT Assessment System List</span>,
+    }),
+
+  ];
+
+  const table = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return <div className="p-2">
+    <table border="1" cellPadding="5">
+      <thead>
+        {table.getHeaderGroups().map((headerGroup) =>
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map((header) =>
+              <th key={header.id}>
+                {header.isPlaceholder ?
+                  null :
+                    flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+              </th>)}
+          </tr>)}
+      </thead>
+      <tbody>
+        {table.getRowModel().rows.map((row) =>
+          <tr key={row.id}>
+            {row.getVisibleCells().map((cell) =>
+              <td key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>)}
+          </tr>)}
+      </tbody>
+    </table>
   </div>;
 };

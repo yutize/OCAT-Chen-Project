@@ -18,10 +18,14 @@ export class CreateAssessmentUseCase implements IUseCase<CreateAssessmentDTO, As
     // HINT: Validate that the score is between 0 and 5
     // HINT: Validate that the risk level matches the score calculation
 
-    // TODO: Create the assessment using the repository
     const createdAssessment = this.assessmentRepository.create(assessmentData);
     return createdAssessment;
   }
 
-  // TODO: Add private helper methods for validation and risk level calculation
+  public async getData() {
+    console.log(`doing something`);
+    const retrieveData = await this.assessmentRepository.findAll();
+    console.log(`retieved data from assrepo`, retrieveData);
+    return retrieveData;
+  }
 }
