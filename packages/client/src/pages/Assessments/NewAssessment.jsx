@@ -38,7 +38,6 @@ export const NewAssessment = () => {
       data.riskLevel = `high`;
     }
     data.instrumentType = `hello`;
-    console.log(`dattaaaaaa`, data);
 
     const filtered = Object.fromEntries(
       Object.entries(data).filter(([ key ]) => allowedKeys.includes(key)),
@@ -46,60 +45,70 @@ export const NewAssessment = () => {
     await AssessmentService.submit(filtered);
   };
 
-  return <Form onSubmit={handleSubmit(onSubmit)}>
+  return <Form onSubmit={handleSubmit(onSubmit)} className="p-4">
     <h1>Cat Behavioral Instrument</h1>
-    <h1>Cat Details</h1>
+    <h2>Cat Details</h2>
 
-    <div>
-      <label> Cat Name </label>
-      <input type="text" placeholder="Cat name" name="catName" {...register(`catName`)} />
-    </div>
-    <div>
-      <label> Cat Date of Birth </label>
-      <input type="date" {...register(`catDateOfBirth`)} />
-    </div>
+    <Form.Group className="mb-3" controlId="catName">
+      <Form.Label>Cat Name</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="Enter cat name"
+        {...register(`catName`)}
+      />
+    </Form.Group>
 
-    <h1>Questions and Responses</h1>
+    <Form.Group className="mb-3" controlId="catDateOfBirth">
+      <Form.Label>Cat Date of Birth</Form.Label>
+      <Form.Control type="date" {...register(`catDateOfBirth`)} />
+    </Form.Group>
 
-    <div>
-      <label> Previous contact with the Cat Judicial System </label>
-      <select {...register(`catContact`)}>
+    <h2>Questions and Responses</h2>
+
+    <Form.Group className="mb-3" controlId="catContact">
+      <Form.Label>Previous contact with the Cat Judicial System</Form.Label>
+      <Form.Select {...register(`catContact`)}>
         <option value={1}>Yes</option>
         <option value={0}>No</option>
-      </select>
-    </div>
+      </Form.Select>
+    </Form.Group>
 
-    <div>
-      <label> Physical Alterations with other cats </label>
-      <select {...register(`catAltercation`)}>
+    <Form.Group className="mb-3" controlId="catAltercation">
+      <Form.Label>Physical Altercations with other cats</Form.Label>
+      <Form.Select {...register(`catAltercation`)}>
         <option value={1}>3+</option>
         <option value={0}>0-3</option>
-      </select>
-    </div>
+      </Form.Select>
+    </Form.Group>
 
-    <div>
-      <label> Physical altercations with owner (scratching, biting, and etc..) </label>
-      <select {...register(`catOwner`)}>
+    <Form.Group className="mb-3" controlId="catOwner">
+      <Form.Label>
+        Physical altercations with owner (scratching, biting, etc.)
+      </Form.Label>
+      <Form.Select {...register(`catOwner`)}>
         <option value={1}>10+</option>
         <option value={0}>0-10</option>
-      </select>
-    </div>
+      </Form.Select>
+    </Form.Group>
 
-    <div>
-      <label> Plays well with dogs </label>
-      <select {...register(`catDogs`)}>
+    <Form.Group className="mb-3" controlId="catDogs">
+      <Form.Label>Plays well with dogs</Form.Label>
+      <Form.Select {...register(`catDogs`)}>
         <option value={0}>Yes</option>
         <option value={1}>No</option>
-      </select>
-    </div>
+      </Form.Select>
+    </Form.Group>
 
-    <div>
-      <label> Hisses at strangers </label>
-      <select {...register(`catStrangers`)}>
+    <Form.Group className="mb-3" controlId="catStrangers">
+      <Form.Label>Hisses at strangers</Form.Label>
+      <Form.Select {...register(`catStrangers`)}>
         <option value={1}>Yes</option>
         <option value={0}>No</option>
-      </select>
-    </div>
-    <Button variant="primary" type="submit">Submit</Button>
+      </Form.Select>
+    </Form.Group>
+
+    <Button variant="primary" type="submit">
+      Submit
+    </Button>
   </Form>;
 };

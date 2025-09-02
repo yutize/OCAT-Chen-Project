@@ -14,10 +14,20 @@ export class AssessmentService {
     }
   }
 
+  static submitDelete(deletionData) {
+    try {
+      console.log(`assessmentservice`, deletionData.id);
+      return Axios.delete(`/assessments`, {
+        data: { id: deletionData.id },
+      });
+    } catch (err) {
+      throw new Error(`${err.response?.statusText} - ${err.response?.data?.message}`);
+    }
+  }
+
   static getList() {
     try {
       // TODO: Choose the correct method, url, and data to send
-      console.log(`sending get request`);
       // in a request to the express packages/api/src/routes/assessment.js
       // NOTE: the http.config file automatically adds /api to the front of your url
       return Axios.get(`/assessments`, {

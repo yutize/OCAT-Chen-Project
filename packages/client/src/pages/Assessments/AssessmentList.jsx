@@ -6,8 +6,14 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Table as BTable, Button } from 'react-bootstrap';
 import { AssessmentService } from '../../services/AssessmentService';
+
+const onClick = (data) => {
+  console.log(`data`, data);
+  AssessmentService.submitDelete(data);
+};
 
 export const AssessmentList = () => {
   const [ assessments, setAssessments ] = useState([]);
@@ -59,7 +65,7 @@ export const AssessmentList = () => {
           header: `Updated At`,
         },
       ],
-      header: () => <span>OCAT Assessment System List</span>,
+      header: () => <span>OCAT Information System</span>,
     }),
 
   ];
@@ -71,7 +77,7 @@ export const AssessmentList = () => {
   });
 
   return <div className="p-2">
-    <table style={{ borderCollapse: `collapse`, width: `100%` }}>
+    <BTable striped bordered hover responsive size="sm">
       <thead>
         {table.getHeaderGroups().map((headerGroup) =>
           <tr key={headerGroup.id} style={{ borderBottom: `2px solid #ccc` }}>
@@ -90,8 +96,13 @@ export const AssessmentList = () => {
               <td key={cell.id} style={{ padding: `8px` }}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>)}
+            <Button
+              type="button"
+              class="btn btn-outline-danger"
+              onClick={() => onClick(data[row.id])}
+            >Delete Record</Button>
           </tr>)}
       </tbody>
-    </table>
+    </BTable>
   </div>;
 };

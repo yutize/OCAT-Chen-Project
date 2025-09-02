@@ -10,9 +10,7 @@ export class GetAssessmentListUseCase implements IUseCase<void, Assessment[]> {
 
   public async execute(): Promise<Assessment[]> {
     // TODO: Implement the assessment list retrieval logic
-    console.log(`doing something`);
     const retrieveData = await this.assessmentRepository.findAll();
-    console.log(`retieved data from assrepo`, retrieveData);
     return retrieveData;
   }
 }

@@ -21,11 +21,4 @@ export class CreateAssessmentUseCase implements IUseCase<CreateAssessmentDTO, As
     const createdAssessment = this.assessmentRepository.create(assessmentData);
     return createdAssessment;
   }
-
-  public async getData() {
-    console.log(`doing something`);
-    const retrieveData = await this.assessmentRepository.findAll();
-    console.log(`retieved data from assrepo`, retrieveData);
-    return retrieveData;
-  }
 }

@@ -18,11 +18,11 @@ export class AssessmentRepository implements IAssessmentRepository {
   public async findAll(): Promise<AssessmentType[]> {
     // TODO: Implement Find All
     const returnAll = await Assessment.findAll();
-    console.log(`womp`, returnAll);
     return returnAll;
   }
 
   public async delete(id: number): Promise<boolean> {
+    console.log(`reached deletion stage`, id);
     return Promise.reject(new Error(`Not implemented`));
   }
 }
